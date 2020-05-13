@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Api\Actions;
 
+use App\Api\Helpers\CommandLineReader;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\{Request, Response, JsonResponse};
-use App\Api\Helpers\RedisReader;
 
-final class RedisAction
+final class CommandAction
 {
     private $reader;
 
-    public function __construct(RedisReader $redisReader)
+    public function __construct(CommandLineReader $redisReader)
     {
         $this->reader = $redisReader;
     }
 
     /**
-     * @Route("/redis", name="redis_action", methods={"POST"})
+     * @Route("/command", name="command_action", methods={"POST"})
      */
     public function __invoke(Request $req)
     {

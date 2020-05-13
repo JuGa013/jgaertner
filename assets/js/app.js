@@ -1,14 +1,14 @@
 import '../scss/app.scss';
 import $ from 'jquery';
-import Redis from './components/redis-form';
+import CommandLine from './components/command-line';
 
 require('bootstrap');
 
-window.customElements.define('redis-form', Redis);
+window.customElements.define('command-line', CommandLine);
 
 $('#aside').on('show.bs.collapse', () => {
   const sticky = $('#aside .sidebar-sticky');
-  if (sticky.find('redis-form').length === 0) {
-    sticky.html('<redis-form method="POST" action="/api/redis"></redis-form>');
+  if (sticky.find('command-line').length === 0) {
+    sticky.html('<command-line method="POST" action="/api/command"></command-line>');
   }
 });
