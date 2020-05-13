@@ -1,0 +1,12 @@
+front:
+    resource: ../../src/Front/Actions/
+    type: annotation
+
+api:
+    resource: ../../src/Api/Actions/
+    type: annotation
+    prefix: /api
+
+kernel:
+    resource: ../../src/Kernel.php
+    type: annotation

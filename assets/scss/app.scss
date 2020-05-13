@@ -1,0 +1,59 @@
+@import "~bootstrap/scss/bootstrap";
+@import './custom';
+
+:root {
+  --dark-gray: #000000BB;
+  --text-color: lightblue;
+}
+redis-form {
+  input.form-control {
+    background-color: var(--dark-gray);
+    border-color: var(--dark-gray);
+    color: white;
+    border-radius: 0;
+    width: 95%;
+    &:focus {
+      background-color: var(--dark-gray);
+      color: white;
+      border: none;
+      box-shadow: none;
+    }
+    &::-webkit-input-placeholder {
+      color: var(--text-color);
+    }
+    &:-ms-input-placeholder {
+      color: var(--text-color);
+    }
+    &::placeholder {
+      color: var(--text-color);
+    }
+  }
+  .result {
+    background-color: var(--dark-gray);
+    color: var(--text-color);
+    padding: 0.375rem 0.75rem;
+    height: calc(100vh - 30px);
+    overflow-y: auto;
+  }
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 450px;
+  height: 100%;
+  background-color: var(--dark-gray);
+  .sidebar-sticky {
+    background-color: var(--dark-gray);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .toggle {
+    position: absolute;
+    right: 0;
+    z-index: 10;
+  }
+}
