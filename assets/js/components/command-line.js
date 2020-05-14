@@ -9,7 +9,10 @@ export default class CommandLine extends HTMLElement {
     constructor() {
         super();
         this.form = null;
-        this.state = new Redis();
+        this.state = null;
+        this.input = null;
+        this.result = null;
+
     }
 
     connectedCallback() {
@@ -21,23 +24,26 @@ export default class CommandLine extends HTMLElement {
     }
 
     get html() {
+        let res = '';
+        if (this.result !== null) {
+            res = this.result.innerHTML;
+        }
         let out = `
           <section class="row">
-            <form class="col-12">
-                <div class="form-group row">`;
-            if (this.state !== null) {
-                out += `
-                    <label for="name" class="col-form-label col-3 pr-0 pl-4">${this.state.label}</label>
-                    <input type="text" name="command" class="form-control col-9 pl-0" placeholder="" autofocus="autofocus" autocomplete="off"/>
-                `;
-            } else {
-                out += `<input type="text" name="command" class="form-control col pl-4" placeholder="" autofocus="autofocus" autocomplete="off"/>`;
-            }
-            out += `</div>
-              <input type="submit" value="Send" class="d-none" />
-            </form>
-    
-            <section id="redis-result" class="col-6 col-md-12"><article class="result"></article></section>
+              <form class="col-12">
+                <div class="form-group row ml-4">`;
+        if (this.state !== null) {
+            out += `
+                        <label for="name" class="col-form-label col-3 pr-0">${this.state.label}</label>
+                        <input id="command_line_text" type="text" name="command" class="form-control col-9 pl-0" placeholder="" autofocus="autofocus" autocomplete="off"/>
+                    `;
+        } else {
+            out += `<input id="command_line_text" type="text" name="command" class="form-control col" placeholder="" autofocus="autofocus" autocomplete="off"/>`;
+        }
+        out += `</div>
+                  <input type="submit" value="Send" class="d-none" />
+                </form>
+              <section id="redis-result" class="col-12 ml-4"><article class="result">${res}</article></section>
           </section>
       `;
 
@@ -101,6 +107,9 @@ export default class CommandLine extends HTMLElement {
                     break;
             }
         });
+        setTimeout(() => {
+            document.getElementById('command_line_text').focus();
+        }, 250);
     }
 
     submitForm() {
@@ -132,9 +141,13 @@ export default class CommandLine extends HTMLElement {
                     return Promise.reject(new Error(val));
                 }
             })
-            .then(json => {
-                    this.search = val
-                    this.result.innerHTML += JSON.stringify(json) + `<br>`
+            .then(res => {
+                    this.search = val;
+                    if (res.startsWith('#') && document.getElementById(res.substr(1))) {
+                        document.getElementById(res.substr(1)).scrollIntoView({behavior: "smooth", inline: "nearest"});
+                    } else {
+                        this.result.innerHTML += res + `<br>`
+                    }
                 }
             )
             .catch(err => this.changePlaceholder(`Unknown parameter "${err.message}". Try help for more information`));

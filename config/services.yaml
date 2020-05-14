@@ -7,15 +7,11 @@ services:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Tests,Kernel.php}'
 
-    App\Api\:
-        resource: '../src/Api/*'
-        exclude: '../src/Api/{Migrations}'
+    App\Infrastructure\:
+        resource: '../src/Infrastructure/*'
+        exclude: '../src/Infrastructure/{Migrations}'
 
     #Actions
-    App\Front\Actions\:
-        resource: '../src/Front/Actions'
-        tags: ['controller.service_arguments']
-
-    App\Api\Actions\:
-        resource: '../src/Api/Actions'
+    App\Actions\:
+        resource: '../src/Actions'
         tags: ['controller.service_arguments']

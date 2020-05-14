@@ -1,3 +1,7 @@
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
 @import "~bootstrap/scss/bootstrap";
 @import './custom';
 
@@ -7,35 +11,39 @@
 }
 
 command-line {
-  .form-group {
-    margin-bottom: 0;
-    label {
-      color: var(--text-color);
+  form {
+    .form-group {
+      margin-bottom: 0;
+      label {
+        background-color: var(--dark-gray);
+        color: var(--text-color);
+        max-width: 22% !important;
+      }
     }
-  }
-  input.form-control {
-    background-color: var(--dark-gray);
-    border-color: var(--dark-gray);
-    color: white;
-    border-radius: 0;
-
-    &:focus {
+    input.form-control {
       background-color: var(--dark-gray);
+      border-color: var(--dark-gray);
       color: white;
-      border: none;
-      box-shadow: none;
-    }
+      border-radius: 0;
 
-    &::-webkit-input-placeholder {
-      color: var(--text-color);
-    }
+      &:focus {
+        background-color: var(--dark-gray);
+        color: white;
+        border: none;
+        box-shadow: none;
+      }
 
-    &:-ms-input-placeholder {
-      color: var(--text-color);
-    }
+      &::-webkit-input-placeholder {
+        color: var(--text-color);
+      }
 
-    &::placeholder {
-      color: var(--text-color);
+      &:-ms-input-placeholder {
+        color: var(--text-color);
+      }
+
+      &::placeholder {
+        color: var(--text-color);
+      }
     }
   }
 
@@ -44,6 +52,7 @@ command-line {
     color: var(--text-color);
     padding: 0.375rem 0.75rem;
     height: calc(100vh - 30px);
+    width: 100%;
     overflow-y: auto;
   }
 }
@@ -61,7 +70,7 @@ command-line {
     background-color: var(--dark-gray);
     position: sticky;
     top: 0;
-    height: 101vh;
+    height: 100vh;
     overflow: hidden;
   }
 

@@ -1,39 +1,103 @@
+{# @var resume \App\Domain\Resume\Models\Resume #}
+{# @var whoami \App\Domain\Whoami\Models\Whoami #}
+
 {% extends 'base.html.twig' %}
 
 {% block body %}
     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#aside">
         Open Command line
     </button>
-    <div>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec placerat turpis. Maecenas eu felis at turpis malesuada egestas. In quis felis quis urna suscipit aliquam sed
-            interdum orci. Sed porta in ex eget auctor. Duis egestas, neque et maximus viverra, tellus metus bibendum mi, sit amet lobortis elit mi ut nisl. Sed vel erat a ante convallis euismod.
-            Fusce venenatis, elit at laoreet fringilla, ante nunc iaculis orci, eget suscipit mauris urna id tortor. Proin mattis et massa ac hendrerit. Maecenas eu finibus turpis. Ut vel lorem
-            efficitur, ornare metus nec, porta ligula.
-        </p>
-        <p>
-            Morbi vestibulum aliquet est, eu placerat risus imperdiet eget. Praesent id ex rhoncus, hendrerit nunc nec, porta mauris. Phasellus ut elit leo. Donec a pellentesque dui. Etiam aliquet
-            sapien eu tristique malesuada. Pellentesque leo elit, malesuada ac dolor eget, rhoncus efficitur metus. Quisque accumsan mauris eget velit pellentesque, sed ultrices erat consequat.
-            Vestibulum posuere mollis mi eu eleifend. Donec pellentesque, dui at volutpat iaculis, quam odio efficitur turpis, et ultricies nulla ante vel justo. In euismod leo sed elit cursus
-            sollicitudin. Vestibulum tempor tortor a nibh malesuada luctus. Vestibulum volutpat molestie ultricies. Sed sed ligula condimentum, porttitor nisi sed, rutrum erat. Nullam semper in est in
-            egestas. In hac habitasse platea dictumst. Nullam venenatis metus sed sapien venenatis, non gravida mi placerat.
-        </p>
-        <p>
-            Maecenas finibus laoreet sem, nec volutpat lacus euismod eget. Quisque fermentum elementum mattis. Suspendisse elementum aliquam interdum. Praesent facilisis aliquam erat ac ullamcorper.
-            Cras velit leo, eleifend eu gravida quis, molestie ac elit. Nulla facilisi. Suspendisse eleifend, urna in pulvinar fermentum, nisi nisi placerat dolor, sed ultrices nunc mi sit amet sem.
-            Ut at dignissim massa, luctus sagittis nibh. Integer non leo eget mi malesuada consectetur et ac lectus. Curabitur pharetra, sem ac dictum pellentesque, urna magna placerat purus, mattis
-            commodo nibh velit at ex. Vivamus rhoncus nec odio id rhoncus. Mauris lacus sem, cursus non diam in, sagittis consequat enim. Fusce a rutrum ante.
-        </p>
-        <p>
-            Donec rutrum urna non condimentum luctus. Aliquam vulputate urna ut porta elementum. Nam commodo orci posuere, semper ex ut, semper neque. Nam enim eros, ornare at aliquet porttitor,
-            lobortis sit amet ante. Nulla eu molestie diam. Pellentesque lectus nisi, accumsan vel neque ut, pharetra tristique tortor. Aliquam eu lorem id orci faucibus blandit. In egestas massa
-            urna, ut ullamcorper libero sollicitudin ac. Vestibulum aliquet eu leo quis suscipit. Morbi diam nisi, rutrum quis convallis at, ultrices vel urna.
-        </p>
-        <p>
-            Aliquam egestas felis non mi pharetra posuere. Suspendisse porta vitae arcu eu pulvinar. Donec sit amet mattis nisi, pharetra condimentum erat. Donec vehicula metus diam, ut scelerisque
-            massa aliquet vel. In ultrices eu neque non feugiat. Sed id aliquet metus. Integer gravida, risus id porta porta, enim nisl volutpat sapien, in aliquam tortor eros at est. Aliquam
-            tincidunt tincidunt porttitor. Vivamus volutpat pellentesque nisi, nec consequat enim sollicitudin efficitur. Nullam magna nisi, blandit in ex quis, accumsan interdum lectus.</p>
-    </div>
+    <section id="whoami" class="row">
+        <h2><small><i class="fa fa-id-badge"></i></small> Whoami</h2>
+        <section class="col-12">
+            <article class="row">
+                <aside class="col-12 col-md-7 row text-center">
+                    <div class="col-12 col-md-6">
+                        <picture>
+                            <img src="https://media-exp1.licdn.com/dms/image/C5603AQHSOT8HOVGBKQ/profile-displayphoto-shrink_200_200/0?e=1594857600&v=beta&t=t4G_BMwI0FkxqkwFAGsIEtU8bZQwhBaOj_1UhNhh2xw"
+                                 alt="" class="img-fluid img-thumbnail">
+                        </picture>
+                    </div>
+                    <div class="col-12 col-md-6 align-self-center">
+                        <p class="h1">{{ whoami.me.lastname|upper }} {{ whoami.me.firstname|title }}</p>
+                    </div>
+                </aside>
+                <address class="col-12 col-md-5 align-self-center lead">
+                    <p><i class="fa fa-envelope"></i> <a href="mailto:{{ whoami.me.email }}">{{ whoami.me.email }}</a></p>
+                    {% if whoami.me.phone is not null %}
+                        <p><i class="fa fa-phone"></i> <a href="tel:{{ whoami.me.phone }}">{{ whoami.me.phone }}</a></p>
+                    {% endif %}
+                    {% if whoami.me.address is not null %}
+                        <p><i class="fa fa-address-book"></i> {{ whoami.me.address }}</p>
+                    {% endif %}
+                </address>
+            </article>
+        </section>
+        <section class="text-justify">
+            <article class="row">
+                <div class="col-12">
+                    {{ whoami.content|raw }}
+                </div>
+            </article>
+        </section>
+    </section>
+
+    <section id="resume" class="row">
+        <h2><small><i class="fa fa-address-card"></i></small> Curriculum vitae</h2>
+        <section class="experiences my-3">
+            <h3>Experiences</h3>
+            {% for exp in resume.experiences %}
+                <article class="row experience my-2">
+                    {# @var exp \App\Domain\Resume\Models\Experience #}
+                    <div class="col-12 col-md-4">
+                        <h4>{{ exp.jobTitle }}</h4>
+                        <p class="small"><i class="fa fa-calendar-minus"></i> {{ exp.start|date('m/Y') }}{% if exp.end is not null %} - {{ exp.end|date('m/Y') }}{% endif %}</p>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <p>{{ exp.description|raw }}</p>
+                        <p class="small"><i class="fa fa-map-marker-alt"></i> <a href="{{ exp.website }}" target="_blank">{{ exp.location }}</a></p>
+                    </div>
+                </article>
+                <hr>
+            {% endfor %}
+        </section>
+        <section class="educations my-3">
+            <h3>Education</h3>
+            {% for edu in resume.educations %}
+                <article class="row education">
+                    {# @var edu \App\Domain\Resume\Models\Education #}
+                    <div class="col-12 col-md-4">
+                        <h4>{{ edu.course }}</h4>
+                        <p class="small"><i class="fa fa-calendar-minus"></i> {{ edu.start|date('m/Y') }}{% if edu.end is not null %} - {{ edu.end|date('m/Y') }}{% endif %}</p>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <p>{{ edu.description|raw }}</p>
+                        <p class="small"><i class="fa fa-map-marker-alt"></i> {{ edu.location }}</p>
+                    </div>
+                </article>
+                <hr>
+            {% endfor %}
+        </section>
+    </section>
+
+    <section id="projects" class="row">
+        <h2><small><i class="fa fa-project-diagram"></i></small> Projets</h2>
+        <section class="projects my-3">
+            <article class="row">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad beatae earum eius esse minus mollitia nisi repudiandae similique tempore veritatis. Accusantium eius illum labore libero nulla quidem rerum, temporibus unde.
+            </article>
+        </section>
+    </section>
+
+    <section id="fun" class="row">
+        <h2><small><i class="fa fa-umbrella-beach"></i></small> Passions</h2>
+        <section class="passions my-3">
+            <article class="row">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad beatae earum eius esse minus mollitia nisi repudiandae similique tempore veritatis. Accusantium eius illum labore libero nulla quidem rerum, temporibus unde.
+            </article>
+        </section>
+    </section>
+
     <aside class="collapse width sidebar" id="aside">
         <div class="sidebar-sticky"></div>
     </aside>

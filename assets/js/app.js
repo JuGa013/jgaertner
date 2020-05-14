@@ -1,4 +1,8 @@
 import '../scss/app.scss';
+import '@fortawesome/fontawesome-free/js/fontawesome'
+import '@fortawesome/fontawesome-free/js/solid'
+import '@fortawesome/fontawesome-free/js/regular'
+import '@fortawesome/fontawesome-free/js/brands'
 import $ from 'jquery';
 import CommandLine from './components/command-line';
 
@@ -11,4 +15,7 @@ $('#aside').on('show.bs.collapse', () => {
   if (sticky.find('command-line').length === 0) {
     sticky.html('<command-line method="POST" action="/api/command"></command-line>');
   }
+}).on('shown.bs.collapse', () => {
+  const el = $('#command_line_text');
+  el.focus();
 });

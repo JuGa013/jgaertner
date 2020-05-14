@@ -1,9 +1,9 @@
 front:
-    resource: ../../src/Front/Actions/
+    resource: ../../src/Actions/Front/
     type: annotation
 
 api:
-    resource: ../../src/Api/Actions/
+    resource: ../../src/Actions/Api/
     type: annotation
     prefix: /api
 
