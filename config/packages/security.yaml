@@ -1,0 +1,29 @@
+security:
+    encoders:
+        App\Domain\Admin\User:
+            algorithm: bcrypt
+
+    providers:
+        user_provider:
+            entity:
+                class: App\Domain\Admin\User
+                property: email
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        admin:
+            anonymous: true
+            provider: user_provider
+            form_login:
+                login_path: user_login
+                check_path: user_login
+                use_referer: false
+                default_target_path: admin
+            logout:
+                path: logout
+                target: user_login
+
+    access_control:
+         - { path: ^/admin, roles: ROLE_ADMIN }

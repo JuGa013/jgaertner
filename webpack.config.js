@@ -9,6 +9,10 @@ Encore
     .setPublicPath('/build')
     .splitEntryChunks()
     .enableSingleRuntimeChunk()
+    .copyFiles({
+        from: './assets/images',
+        to: Encore.isProduction() ? 'images/[path][name].[hash:8].[ext]' : 'images/[path][name].[ext]'
+    })
 
     /*
      * FEATURE CONFIG

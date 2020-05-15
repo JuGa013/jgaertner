@@ -2,6 +2,10 @@ front:
     resource: ../../src/Actions/Front/
     type: annotation
 
+admin:
+    resource: ../../src/Actions/Admin/
+    type: annotation
+
 api:
     resource: ../../src/Actions/Api/
     type: annotation

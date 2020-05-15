@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="container">
+        <div class="text-center" style="margin-top: 10%;">
+            <img src="{{ asset('build/images/g-icon.png') }}" alt="" class="img-fluid img-thumbnail mb-2" style="width: 100px">
+            <h1 class="h1 mb-5">{{ 'Please sign in'|trans }}</h1>
+            <form method="post" class="m-auto col-4">
+                {% if error is defined and error is not empty %}
+                    <div>{{ error.messageKey|trim('.')|trans }}</div>
+                {% endif %}
+
+                <label class="sr-only" for="inputEmail">{{ 'Email'|trans }}</label>
+                <input type="email" value="{{ last_username }}" class="form-control" name="_username" id="email" required autofocus placeholder="{{ 'Email'|trans }}">
+                <div class="mb-2"></div>
+                <label class="sr-only" for="inputPassword">{{ 'Password'|trans }}</label>
+                <input type="password" class="form-control" name="_password" id="password" required placeholder="{{ 'Password'|trans }}">
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div class="text-center pt-3">
+                    <button id="connect_btn" class="btn btn-primary btn-lg btn-block" type="submit">
+                        {{ 'Login'|trans }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

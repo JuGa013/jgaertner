@@ -4,57 +4,11 @@ $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import "~bootstrap/scss/bootstrap";
 @import './custom';
+@import './command_line';
 
 :root {
   --dark-gray: #000000BB;
   --text-color: lightblue;
-}
-
-command-line {
-  form {
-    .form-group {
-      margin-bottom: 0;
-      label {
-        background-color: var(--dark-gray);
-        color: var(--text-color);
-        max-width: 22% !important;
-      }
-    }
-    input.form-control {
-      background-color: var(--dark-gray);
-      border-color: var(--dark-gray);
-      color: white;
-      border-radius: 0;
-
-      &:focus {
-        background-color: var(--dark-gray);
-        color: white;
-        border: none;
-        box-shadow: none;
-      }
-
-      &::-webkit-input-placeholder {
-        color: var(--text-color);
-      }
-
-      &:-ms-input-placeholder {
-        color: var(--text-color);
-      }
-
-      &::placeholder {
-        color: var(--text-color);
-      }
-    }
-  }
-
-  .result {
-    background-color: var(--dark-gray);
-    color: var(--text-color);
-    padding: 0.375rem 0.75rem;
-    height: calc(100vh - 30px);
-    width: 100%;
-    overflow-y: auto;
-  }
 }
 
 .sidebar {
@@ -78,5 +32,22 @@ command-line {
     position: absolute;
     right: 0;
     z-index: 10;
+  }
+}
+
+.whoami {
+  &:after {
+    content: "";
+    background: url('../images/bg.png');
+    background-size: contain;
+    background-position: top;
+    background-repeat: repeat-x;
+    opacity: 0.8;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
   }
 }
