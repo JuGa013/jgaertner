@@ -29,21 +29,22 @@ export default class CommandLine extends HTMLElement {
             res = this.result.innerHTML;
         }
         let out = `
-          <section class="row">
-              <form class="col-12">
-                <div class="form-group row ml-4">`;
+          <section class="m-0">
+              <form>
+                <div class="form-group d-flex">`;
         if (this.state !== null) {
             out += `
                         <label for="name" class="col-form-label col-3 pr-0">${this.state.label}</label>
                         <input id="command_line_text" type="text" name="command" class="form-control col-9 pl-0" placeholder="" autofocus="autofocus" autocomplete="off"/>
                     `;
         } else {
-            out += `<input id="command_line_text" type="text" name="command" class="form-control col" placeholder="" autofocus="autofocus" autocomplete="off"/>`;
+            out += `<input id="command_line_text" type="text" name="command" class="form-control col-12" placeholder="" autofocus="autofocus" autocomplete="off"/>`;
         }
-        out += `</div>
+        out += `
+              </div>
                   <input type="submit" value="Send" class="d-none" />
                 </form>
-              <section id="redis-result" class="col-12 ml-4"><article class="result">${res}</article></section>
+              <section id="redis-result" class=""><article class="result">${res}</article></section>
           </section>
       `;
 
