@@ -5,6 +5,8 @@ const messages = [
     'Type `help` for more information'
 ];
 
+const storageKey = 'commandline:history';
+
 export default class CommandLine extends HTMLElement {
     constructor() {
         super();
@@ -12,15 +14,20 @@ export default class CommandLine extends HTMLElement {
         this.state = null;
         this.input = null;
         this.result = null;
-
     }
 
     connectedCallback() {
         this.render();
+        localStorage.setItem(storageKey, null);
+        this.currentStorageKey = 0;
 
         if (!this.hasAttribute('method')) {
             this.setAttribute('method', 'GET');
         }
+        document.addEventListener('keyup', (e) => {
+            const key = e.key || e.code
+            this.navigateThroughHistory(key);
+        });
     }
 
     get html() {
@@ -28,27 +35,25 @@ export default class CommandLine extends HTMLElement {
         if (this.result !== null) {
             res = this.result.innerHTML;
         }
-        let out = `
+        return `
           <section class="m-0">
               <form>
-                <div class="form-group d-flex">`;
-        if (this.state !== null) {
-            out += `
-                        <label for="name" class="col-form-label col-3 pr-0">${this.state.label}</label>
-                        <input id="command_line_text" type="text" name="command" class="form-control col-9 pl-0" placeholder="" autofocus="autofocus" autocomplete="off"/>
-                    `;
-        } else {
-            out += `<input id="command_line_text" type="text" name="command" class="form-control col-12" placeholder="" autofocus="autofocus" autocomplete="off"/>`;
-        }
-        out += `
+                <div class="form-group d-flex">
+                ${this.stdin}
               </div>
                   <input type="submit" value="Send" class="d-none" />
                 </form>
-              <section id="redis-result" class=""><article class="result">${res}</article></section>
+              <section id="stdout" class=""><article class="result">${res}</article></section>
           </section>
       `;
+    }
 
-        return out
+    get stdin() {
+        if (null !== this.state) {
+            return this.state.stdin;
+        }
+
+        return `<input id="command_line_text" type="text" name="command" class="form-control col-12" placeholder="" autofocus="autofocus" autocomplete="off"/>`
     }
 
     get action() {
@@ -89,7 +94,7 @@ export default class CommandLine extends HTMLElement {
         this.innerHTML = this.html;
         this.form = this.querySelector('form');
         this.input = this.form.querySelector('input[name="command"]');
-        this.result = this.querySelector('#redis-result .result');
+        this.result = this.querySelector('#stdout .result');
         this.loopPlaceholder();
         this.changePlaceholder('');
 
@@ -102,6 +107,7 @@ export default class CommandLine extends HTMLElement {
                 case 'redis-cli':
                     this.state = new Redis();
                     this.render();
+                    this.addToHistoric('redis-cli');
                     break;
                 default :
                     this.submitForm();
@@ -128,7 +134,27 @@ export default class CommandLine extends HTMLElement {
             method: this.method,
             body: fetchData
         }
+        this.addToHistoric(val);
         this.fetchForm(val, options);
+    }
+
+    addToHistoric(val) {
+        let history = JSON.parse(localStorage.getItem(storageKey));
+        if (history === null) {
+            history = []
+        }
+        history.unshift(val);
+        localStorage.setItem(storageKey, JSON.stringify(history))
+    }
+
+    navigateThroughHistory(direction) {
+        const history = JSON.parse(localStorage.getItem(storageKey));
+        if (history.length === 0) {
+            return;
+        }
+        if (direction === 'ArrowUp') {
+            //TODO : naviguer dans l'historique
+        }
     }
 
     async fetchForm(val, options) {
@@ -181,7 +207,8 @@ export default class CommandLine extends HTMLElement {
             this.state = null;
             this.render();
         } else {
-            document.querySelector('[data-target="#aside"]').click();
+            const event = new Event('command-line:exit');
+            document.dispatchEvent(event);
             this.form.reset();
         }
     }

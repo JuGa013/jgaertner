@@ -11,11 +11,15 @@ require('bootstrap');
 window.customElements.define('command-line', CommandLine);
 
 $('#aside').on('show.bs.collapse', () => {
-  const sticky = $('#aside .sidebar-sticky');
-  if (sticky.find('command-line').length === 0) {
-    sticky.html('<command-line method="POST" action="/api/command"></command-line>');
-  }
+    const sticky = $('#aside .sidebar-sticky');
+    if (sticky.find('command-line').length === 0) {
+        sticky.html('<command-line id="stdin" method="POST" action="/api/command"></command-line>');
+    }
 }).on('shown.bs.collapse', () => {
-  const el = $('#command_line_text');
-  el.focus();
+    const el = $('#command_line_text');
+    el.focus();
+});
+
+$(document).on('command-line:exit', () => {
+    $('#aside').collapse('hide');
 });

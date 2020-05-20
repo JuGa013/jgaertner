@@ -17,7 +17,7 @@ final class WhoamiResolver
 {
     public function getWhoami(): Whoami
     {
-        $me = new Person('Gaertner', 'Julien', 'jugaert@protonmail.com', '44B rue Kruger 13004 Marseille', '0666016789');
+        $me = new Person('Gaertner', 'Julien', new \DateTimeImmutable('1989-12-19 3:45:00'),'jugaert@protonmail.com', '44B rue Kruger 13004 Marseille', '0666016789');
         $content = '
                 <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec placerat turpis. Maecenas eu felis at turpis malesuada egestas. In quis felis quis urna suscipit aliquam sed

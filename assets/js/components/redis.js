@@ -29,4 +29,11 @@ export default class Redis {
     get action() {
         return '/api/redis';
     }
+
+    get stdin() {
+        return `
+            <label for="name" class="col-form-label col-3 pr-0">${this.label}</label>
+            <input id="command_line_text" type="text" name="command" class="form-control col-9 pl-0" placeholder="" autofocus="autofocus" autocomplete="off"/>
+        `;
+    }
 }

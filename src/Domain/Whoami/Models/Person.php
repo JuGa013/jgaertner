@@ -16,16 +16,19 @@ final class Person
 
     public string $firstname;
 
+    public \DateTimeInterface $birthday;
+
     public string $email;
 
     public ?string $address;
 
     public ?string $phone;
 
-    public function __construct(string $lastname, string $firstname, string $email, ?string $address, ?string $phone)
+    public function __construct(string $lastname, string $firstname, \DateTimeInterface $birthday, string $email, ?string $address, ?string $phone)
     {
         $this->lastname = $lastname;
         $this->firstname = $firstname;
+        $this->birthday = $birthday;
         $this->email = $email;
         $this->address = $address;
         $this->phone = $phone;
