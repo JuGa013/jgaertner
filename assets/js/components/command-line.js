@@ -20,6 +20,7 @@ export default class CommandLine extends HTMLElement {
         this.render();
         localStorage.setItem(storageKey, null);
         this.currentStorageKey = 0;
+        this.lastKey = null;
 
         if (!this.hasAttribute('method')) {
             this.setAttribute('method', 'GET');
@@ -113,6 +114,8 @@ export default class CommandLine extends HTMLElement {
                     this.submitForm();
                     break;
             }
+            this.currentStorageKey = 0;
+            this.lastKey = null;
         });
         setTimeout(() => {
             document.getElementById('command_line_text').focus();
@@ -141,20 +144,41 @@ export default class CommandLine extends HTMLElement {
     addToHistoric(val) {
         let history = JSON.parse(localStorage.getItem(storageKey));
         if (history === null) {
-            history = []
+            history = [];
         }
         history.unshift(val);
-        localStorage.setItem(storageKey, JSON.stringify(history))
+        localStorage.setItem(storageKey, JSON.stringify(history));
     }
 
     navigateThroughHistory(direction) {
-        const history = JSON.parse(localStorage.getItem(storageKey));
-        if (history.length === 0) {
+        if (this.input === null) {
             return;
         }
-        if (direction === 'ArrowUp') {
-            //TODO : naviguer dans l'historique
+        if (direction !== 'ArrowUp' && direction !== 'ArrowDown') {
+            return;
         }
+        const history = JSON.parse(localStorage.getItem(storageKey));
+        if (history === null || history.length === 0) {
+            return;
+        }
+        if (this.currentStorageKey < 0) {
+            this.currentStorageKey = 0;
+        }
+        let val = null;
+        if (direction === 'ArrowUp' && this.currentStorageKey <= history.length) {
+            if ((this.lastKey === 'ArrowUp' && this.currentStorageKey < history.length - 1) || (this.lastKey === 'ArrowDown' && this.currentStorageKey > 0)) {
+              ++this.currentStorageKey;
+            }
+            if (this.lastKey === 'ArrowDown' && this.currentStorageKey === 0 && this.input.value.length > 0) {
+              ++this.currentStorageKey;
+            }
+            val = history[this.currentStorageKey];
+        } else if (direction === 'ArrowDown' && this.currentStorageKey > 0) {
+            --this.currentStorageKey;
+            val = history[this.currentStorageKey];
+        }
+        this.lastKey = direction;
+        this.input.value = val;
     }
 
     async fetchForm(val, options) {
