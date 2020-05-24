@@ -12,6 +12,8 @@ namespace App\Domain\Whoami\Models;
 
 final class Person
 {
+    public ?string $id;
+
     public string $lastname;
 
     public string $firstname;

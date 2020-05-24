@@ -2,10 +2,12 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $dbpath: '%kernel.project_dir%/var/db/'
 
     App\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Tests,Kernel.php}'
+        exclude: '../src/{DependencyInjection,Infrastructure,Tests,Kernel.php}'
 
     App\Infrastructure\:
         resource: '../src/Infrastructure/*'
