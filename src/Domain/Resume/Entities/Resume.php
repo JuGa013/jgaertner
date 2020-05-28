@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Resume\Models;
+namespace App\Domain\Resume\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

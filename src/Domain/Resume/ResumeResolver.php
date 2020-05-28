@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace App\Domain\Resume;
 
-use App\Domain\Resume\Models\Education;
-use App\Domain\Resume\Models\Experience;
-use App\Domain\Resume\Models\Resume;
+use App\Domain\Resume\Entities\Education;
+use App\Domain\Resume\Entities\Experience;
+use App\Domain\Resume\Entities\Resume;
 
 final class ResumeResolver
 {

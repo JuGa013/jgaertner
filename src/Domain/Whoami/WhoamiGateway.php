@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Whoami;
 
-use App\Domain\Whoami\Models\Whoami;
-use App\Domain\Whoami\Models\Person;
+use App\Domain\Whoami\Entities\Whoami;
+use App\Domain\Whoami\Entities\Person;
 
 interface WhoamiGateway
 {
