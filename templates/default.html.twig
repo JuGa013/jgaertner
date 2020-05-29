@@ -1,5 +1,5 @@
-{# @var resume \App\Domain\Resume\Models\Resume #}
-{# @var whoami \App\Domain\Whoami\Models\Whoami #}
+{# @var resume \App\Domain\Resume\Entities\Resume #}
+{# @var whoami \App\Domain\Whoami\Entities\Whoami #}
 
 {% extends 'base.html.twig' %}
 
@@ -14,7 +14,7 @@
                 <aside class="col-12 col-md-7 row text-center">
                     <div class="col-12 col-md-6">
                         <picture>
-                            <img src="https://media-exp1.licdn.com/dms/image/C5603AQHSOT8HOVGBKQ/profile-displayphoto-shrink_200_200/0?e=1594857600&v=beta&t=t4G_BMwI0FkxqkwFAGsIEtU8bZQwhBaOj_1UhNhh2xw"
+                            <img src="{{ whoami.image.pathname }}"
                                  alt="" class="img-fluid img-thumbnail">
                         </picture>
                     </div>

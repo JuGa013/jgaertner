@@ -7,6 +7,8 @@ namespace App\Domain\Whoami\Forms;
 use App\Domain\Whoami\Models\PersonModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,9 +25,10 @@ final class PersonType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('image', FileType::class)
             ->add('lastname', TextType::class)
             ->add('firstname', TextType::class)
-            ->add('email', TextType::class)
+            ->add('email', EmailType::class)
             ->add('birthday', DateType::class, [
                 'widget' => 'single_text',
             ])

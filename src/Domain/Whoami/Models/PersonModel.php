@@ -1,19 +1,16 @@
 <?php
 
-/**
- * © Infostrates
- * Par Julien
- * Le 28/05/2020
- */
-
 declare(strict_types=1);
 
 namespace App\Domain\Whoami\Models;
 
 use App\Domain\Whoami\Entities\Person;
+use Symfony\Component\HttpFoundation\File\File;
 
 final class PersonModel
 {
+    public ?File $image = null;
+
     public string $lastname = '';
 
     public string $firstname = '';
@@ -26,10 +23,11 @@ final class PersonModel
 
     public ?string $phone = null;
 
-    public static function fromPerson(Person $person): self
+    public static function fromPerson(Person $person, ?File $image = null): self
     {
         $o = new self();
 
+        $o->image = $image;
         $o->lastname = $person->lastname;
         $o->firstname = $person->firstname;
         $o->birthday = $person->birthday;

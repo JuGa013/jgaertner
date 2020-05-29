@@ -9,7 +9,6 @@ use App\Responders\AdminResponder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 final class AdminAction
 {
     /** @var AdminResponder */
